@@ -1,0 +1,302 @@
+$date
+	Sun Nov  2 18:43:27 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module tb_matrix_mem $end
+$var wire 1 ! empty $end
+$var wire 1 " data_out_valid $end
+$var wire 2 # data_out [1:0] $end
+$var parameter 32 $ WIDTH $end
+$var reg 1 % clk $end
+$var reg 2 & in1_data_in [1:0] $end
+$var reg 1 ' in1_data_in_valid $end
+$var reg 1 ( in1_wr_en $end
+$var reg 3 ) in1_x [2:0] $end
+$var reg 3 * in1_y [2:0] $end
+$var reg 2 + in2_data_in [1:0] $end
+$var reg 1 , in2_data_in_valid $end
+$var reg 1 - in2_wr_en $end
+$var reg 3 . in2_x [2:0] $end
+$var reg 3 / in2_y [2:0] $end
+$var reg 1 0 in_sel $end
+$var reg 2 1 init_select [1:0] $end
+$var reg 1 2 rstn $end
+$scope module uut $end
+$var wire 1 % clk $end
+$var wire 2 3 in1_data_in [1:0] $end
+$var wire 1 ' in1_data_in_valid $end
+$var wire 1 ( in1_wr_en $end
+$var wire 3 4 in1_x [2:0] $end
+$var wire 3 5 in1_y [2:0] $end
+$var wire 2 6 in2_data_in [1:0] $end
+$var wire 1 , in2_data_in_valid $end
+$var wire 1 - in2_wr_en $end
+$var wire 3 7 in2_x [2:0] $end
+$var wire 3 8 in2_y [2:0] $end
+$var wire 1 0 in_sel $end
+$var wire 2 9 init_select [1:0] $end
+$var wire 2 : m00 [1:0] $end
+$var wire 2 ; m01 [1:0] $end
+$var wire 2 < m02 [1:0] $end
+$var wire 2 = m03 [1:0] $end
+$var wire 2 > m04 [1:0] $end
+$var wire 2 ? m05 [1:0] $end
+$var wire 2 @ m10 [1:0] $end
+$var wire 2 A m11 [1:0] $end
+$var wire 2 B m12 [1:0] $end
+$var wire 2 C m13 [1:0] $end
+$var wire 2 D m14 [1:0] $end
+$var wire 2 E m15 [1:0] $end
+$var wire 2 F m20 [1:0] $end
+$var wire 2 G m21 [1:0] $end
+$var wire 2 H m22 [1:0] $end
+$var wire 2 I m23 [1:0] $end
+$var wire 2 J m24 [1:0] $end
+$var wire 2 K m25 [1:0] $end
+$var wire 2 L m30 [1:0] $end
+$var wire 2 M m31 [1:0] $end
+$var wire 2 N m32 [1:0] $end
+$var wire 2 O m33 [1:0] $end
+$var wire 2 P m34 [1:0] $end
+$var wire 2 Q m35 [1:0] $end
+$var wire 2 R m40 [1:0] $end
+$var wire 2 S m41 [1:0] $end
+$var wire 2 T m42 [1:0] $end
+$var wire 2 U m43 [1:0] $end
+$var wire 2 V m44 [1:0] $end
+$var wire 2 W m45 [1:0] $end
+$var wire 2 X m50 [1:0] $end
+$var wire 2 Y m51 [1:0] $end
+$var wire 2 Z m52 [1:0] $end
+$var wire 2 [ m53 [1:0] $end
+$var wire 2 \ m54 [1:0] $end
+$var wire 2 ] m55 [1:0] $end
+$var wire 1 2 rstn $end
+$var wire 3 ^ y [2:0] $end
+$var wire 3 _ x [2:0] $end
+$var wire 1 ` wr_en $end
+$var wire 12 a row5_flat [11:0] $end
+$var wire 12 b row4_flat [11:0] $end
+$var wire 12 c row3_flat [11:0] $end
+$var wire 12 d row2_flat [11:0] $end
+$var wire 12 e row1_flat [11:0] $end
+$var wire 12 f row0_flat [11:0] $end
+$var wire 6 g index [5:0] $end
+$var wire 1 h data_in_valid $end
+$var wire 2 i data_in [1:0] $end
+$var parameter 32 j WIDTH $end
+$var reg 2 k data_out [1:0] $end
+$var reg 1 " data_out_valid $end
+$var reg 1 ! empty $end
+$var integer 32 l col [31:0] $end
+$var integer 32 m k [31:0] $end
+$var integer 32 n row [31:0] $end
+$scope begin row_signals[0] $end
+$var parameter 2 o i $end
+$upscope $end
+$scope begin row_signals[1] $end
+$var parameter 2 p i $end
+$upscope $end
+$scope begin row_signals[2] $end
+$var parameter 3 q i $end
+$upscope $end
+$scope begin row_signals[3] $end
+$var parameter 3 r i $end
+$upscope $end
+$scope begin row_signals[4] $end
+$var parameter 4 s i $end
+$upscope $end
+$scope begin row_signals[5] $end
+$var parameter 4 t i $end
+$upscope $end
+$scope begin $ivl_for_loop0 $end
+$var integer 32 u i [31:0] $end
+$upscope $end
+$scope begin $ivl_for_loop1 $end
+$var integer 32 v i [31:0] $end
+$upscope $end
+$scope begin $ivl_for_loop2 $end
+$var integer 32 w i [31:0] $end
+$upscope $end
+$scope begin $ivl_for_loop3 $end
+$var integer 32 x i [31:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+b101 t
+b100 s
+b11 r
+b10 q
+b1 p
+b0 o
+b110 j
+b110 $
+$end
+#0
+$dumpvars
+bx x
+bx w
+bx v
+b100100 u
+b110 n
+b100100 m
+b110 l
+b0 k
+bx i
+0h
+bx g
+b10001010000 f
+b0 e
+b10100000100 d
+b1 c
+b1 b
+b101 a
+0`
+bx _
+bx ^
+b0 ]
+b0 \
+b0 [
+b0 Z
+b1 Y
+b1 X
+b0 W
+b0 V
+b0 U
+b0 T
+b0 S
+b1 R
+b0 Q
+b0 P
+b0 O
+b0 N
+b0 M
+b1 L
+b1 K
+b1 J
+b0 I
+b0 H
+b1 G
+b0 F
+b0 E
+b0 D
+b0 C
+b0 B
+b0 A
+b0 @
+b1 ?
+b0 >
+b1 =
+b1 <
+b0 ;
+b0 :
+b0 9
+bx 8
+bx 7
+bx 6
+bx 5
+bx 4
+bx 3
+02
+b0 1
+00
+bx /
+bx .
+0-
+0,
+bx +
+bx *
+bx )
+0(
+0'
+bx &
+0%
+b0 #
+0"
+0!
+$end
+#5000
+b100100 u
+1%
+#10000
+b111 g
+1h
+1`
+b1 i
+b1 ^
+b1 _
+0%
+1'
+1(
+b1 &
+b1 3
+b1 *
+b1 5
+b1 )
+b1 4
+12
+#15000
+b100100 m
+0!
+b1 A
+b100 e
+b110 l
+b110 n
+1"
+1%
+#20000
+0`
+0%
+0(
+#25000
+b1 #
+b1 k
+1"
+1%
+#30000
+b1110 g
+b10 _
+b10 ^
+1`
+b10 i
+0%
+1,
+1-
+b10 +
+b10 6
+b10 /
+b10 8
+b10 .
+b10 7
+10
+0'
+#35000
+b10 H
+b10100100100 d
+b110 l
+b110 n
+b100100 m
+0!
+b0 #
+b0 k
+1"
+1%
+#40000
+0`
+0%
+0-
+#45000
+b10 #
+b10 k
+1"
+1%
+#50000
+0%
