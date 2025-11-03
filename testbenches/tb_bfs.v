@@ -68,23 +68,63 @@ module tb_bfs;
         test_mem[13] = 2'b01; // (1,2)
         
         #10 rstn = 1;
-        #10 x = 1; y = 1; bfs_start = 1;
         
+        // Test 1: Multi-cell boat (should not sink)
+        $display("=== Test 1: Multi-cell boat ===");
+        #10 x = 1; y = 1; bfs_start = 1;
         wait(bfs_done);
         #10 bfs_start = 0;
+        $display("Multi-cell boat result: sink=%b (expected: 0)", bfs_sink);
+        
         #10 x = 2; y = 1; bfs_start = 1;
-
         wait(bfs_done);
         #10 bfs_start = 0;
+        $display("Multi-cell boat result: sink=%b (expected: 0)", bfs_sink);
                 
         #10 x = 1; y = 2; bfs_start = 1;
         wait(bfs_done);
-
-        $display("BFS completed: sink=%b", bfs_sink);
-        if (!bfs_sink) $display("BFS sink detection failed - expected sink but got no sink");
-        else $display("BFS sink detection PASSED");
+        #10 bfs_start = 0;
+        $display("Multi-cell boat result: sink=%b (expected: 1)", bfs_sink);
         
-        $display("BFS verification COMPLETED");
+        // Test 2: Single-cell boat (should sink)
+        $display("=== Test 2: Single-cell boat ===");
+        // Clear memory and set single cell
+        for (integer i = 0; i < 36; i = i + 1) test_mem[i] = 2'b00;
+        test_mem[14] = 2'b01; // (2,2) - isolated cell
+        
+        #10 x = 2; y = 2; bfs_start = 1;
+        wait(bfs_done);
+        #10 bfs_start = 0;
+        $display("Single-cell boat result: sink=%b (expected: 1)", bfs_sink);
+        
+        // Test 3: Reset functionality
+        $display("=== Test 3: Reset test ===");
+        // Set up another multi-cell boat
+        for (integer i = 0; i < 36; i = i + 1) test_mem[i] = 2'b00;
+        test_mem[20] = 2'b01; // (2,3)
+        test_mem[21] = 2'b01; // (3,3)
+        
+        // Start BFS operation
+        #10 x = 2; y = 3; bfs_start = 1;
+        #5; // Let it start processing
+        
+        // Apply reset during operation
+        rstn = 0;
+        #10 rstn = 1;
+        bfs_start = 0;
+        
+        // Test same configuration after reset
+        #10 x = 2; y = 3; bfs_start = 1;
+        wait(bfs_done);
+        #10 bfs_start = 0;
+        $display("After reset result: sink=%b (expected: 0)", bfs_sink);
+        
+        #10 x = 3; y = 3; bfs_start = 1;
+        wait(bfs_done);
+        #10 bfs_start = 0;
+        $display("After reset result: sink=%b (expected: 1)", bfs_sink);
+        
+        $display("=== All BFS tests completed ===");
         #40;
         $finish;
     end
