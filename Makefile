@@ -3,18 +3,24 @@
 # Default simulator (can be overridden: make SIM=verilator)
 SIM ?= iverilog
 
+# Directories
+SRC_DIR = src
+TB_DIR = testbenches
+VCD_DIR = vcd
+BUILD_DIR = build
+
 # Source files
-SOURCES = submarine_top.v game_engine.v bfs.v matrix_mem.v
-TESTBENCH = submarine_tb.r4.sv
+SOURCES = $(SRC_DIR)/submarine_top.v $(SRC_DIR)/game_engine.v $(SRC_DIR)/bfs.v $(SRC_DIR)/matrix_mem.v
+TESTBENCH = $(TB_DIR)/submarine_tb.r4.sv
 TOP_MODULE = submarine_tb
 
 # Verification testbenches
-VERIFY_TBS = tb_matrix_mem.v tb_bfs.v tb_game_engine.v tb_submarine_top.v
+VERIFY_TBS = $(TB_DIR)/tb_matrix_mem.v $(TB_DIR)/tb_bfs.v $(TB_DIR)/tb_game_engine.v $(TB_DIR)/tb_submarine_top.v
 VERIFY_MODULES = tb_matrix_mem tb_bfs tb_game_engine tb_submarine_top
 
 # Output files
-VCD_FILE = submarine_tb.vcd
-EXEC_FILE = submarine_sim
+VCD_FILE = $(VCD_DIR)/submarine_tb.vcd
+EXEC_FILE = $(BUILD_DIR)/submarine_sim
 
 # Default target
 all: sim
@@ -22,10 +28,11 @@ all: sim
 # Icarus Verilog simulation
 ifeq ($(SIM),iverilog)
 compile:
+	mkdir -p $(VCD_DIR) $(BUILD_DIR)
 	iverilog -o $(EXEC_FILE) -s $(TOP_MODULE) $(TESTBENCH) $(SOURCES)
 
 sim: compile
-	./$(EXEC_FILE)
+	$(EXEC_FILE)
 
 wave: sim
 	gtkwave $(VCD_FILE) &
@@ -34,6 +41,7 @@ endif
 # Verilator simulation
 ifeq ($(SIM),verilator)
 compile:
+	mkdir -p $(VCD_DIR) $(BUILD_DIR)
 	verilator --cc --exe --build -j 0 -Wall $(TESTBENCH) $(SOURCES) --top-module $(TOP_MODULE)
 
 sim: compile
@@ -46,6 +54,7 @@ endif
 # ModelSim/QuestaSim simulation
 ifeq ($(SIM),modelsim)
 compile:
+	mkdir -p $(VCD_DIR) $(BUILD_DIR)
 	vlog $(SOURCES) $(TESTBENCH)
 
 sim: compile
@@ -57,7 +66,8 @@ endif
 
 # Clean generated files
 clean:
-	rm -f $(EXEC_FILE) $(VCD_FILE)
+	rm -rf $(BUILD_DIR)
+	rm -rf $(VCD_DIR)/*.vcd
 	rm -rf obj_dir/
 	rm -f *.vvp *.lxt2 *.ghw
 	rm -f transcript vsim.wlf
@@ -65,25 +75,29 @@ clean:
 
 # Verification targets
 verify-matrix: 
-	iverilog -o tb_matrix_mem tb_matrix_mem.v matrix_mem.v && ./tb_matrix_mem
+	mkdir -p $(VCD_DIR) $(BUILD_DIR)
+	iverilog -o $(BUILD_DIR)/tb_matrix_mem $(TB_DIR)/tb_matrix_mem.v $(SRC_DIR)/matrix_mem.v && $(BUILD_DIR)/tb_matrix_mem
 
 verify-matrix-wave: verify-matrix
-	gtkwave tb_matrix_mem.vcd &
+	gtkwave $(VCD_DIR)/tb_matrix_mem.vcd &
 
 verify-bfs:
-	iverilog -o tb_bfs tb_bfs.v bfs.v && ./tb_bfs
+	mkdir -p $(VCD_DIR) $(BUILD_DIR)
+	iverilog -o $(BUILD_DIR)/tb_bfs $(TB_DIR)/tb_bfs.v $(SRC_DIR)/bfs.v && $(BUILD_DIR)/tb_bfs
 
 verify-bfs-wave: verify-bfs
-	gtkwave tb_bfs.vcd &
+	gtkwave $(VCD_DIR)/tb_bfs.vcd &
 
 verify-engine:
-	iverilog -o tb_game_engine tb_game_engine.v game_engine.v && ./tb_game_engine
+	mkdir -p $(VCD_DIR) $(BUILD_DIR)
+	iverilog -o $(BUILD_DIR)/tb_game_engine $(TB_DIR)/tb_game_engine.v $(SRC_DIR)/game_engine.v && $(BUILD_DIR)/tb_game_engine
 
 verify-top:
-	iverilog -o tb_submarine_top tb_submarine_top.v $(SOURCES) && ./tb_submarine_top
+	mkdir -p $(VCD_DIR) $(BUILD_DIR)
+	iverilog -o $(BUILD_DIR)/tb_submarine_top $(TB_DIR)/tb_submarine_top.v $(SOURCES) && $(BUILD_DIR)/tb_submarine_top
 
 verify-top-wave: verify-top
-	gtkwave tb_submarine_top.vcd &
+	gtkwave $(VCD_DIR)/tb_submarine_top.vcd &
 
 verify-all: verify-matrix verify-bfs verify-engine verify-top
 	@echo "All module verifications completed"

@@ -23,7 +23,7 @@ module tb_matrix_mem;
     always #5 clk = ~clk;
     
     initial begin
-        $dumpfile("tb_matrix_mem.vcd");
+        $dumpfile("vcd/tb_matrix_mem.vcd");
         $dumpvars(0, tb_matrix_mem);
         
         clk = 0; rstn = 0; in1_wr_en = 0; in2_wr_en = 0; in_sel = 0;

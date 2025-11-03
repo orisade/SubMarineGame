@@ -44,7 +44,7 @@ module submarine_tb;
     integer idx;
 
     initial begin
-        $dumpfile("submarine_tb.vcd");
+        $dumpfile("vcd/submarine_tb.vcd");
         $dumpvars(0, submarine_tb);
 
         // Initialize

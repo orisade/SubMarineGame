@@ -56,7 +56,7 @@ module tb_bfs;
     end
     
     initial begin
-        $dumpfile("tb_bfs.vcd");
+        $dumpfile("vcd/tb_bfs.vcd");
         $dumpvars(0, tb_bfs);
         
         clk = 0; rstn = 0; bfs_start = 0; mem_ready = 0;

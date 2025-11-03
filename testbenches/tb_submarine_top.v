@@ -15,7 +15,7 @@ module tb_submarine_top;
     always #5 clk = ~clk;
     
     initial begin
-        $dumpfile("tb_submarine_top.vcd");
+        $dumpfile("vcd/tb_submarine_top.vcd");
         $dumpvars(0, tb_submarine_top);
         
         clk = 0; rstn = 0; cord_valid = 0; init_select = 0;
